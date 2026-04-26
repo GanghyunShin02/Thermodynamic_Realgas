@@ -101,6 +101,7 @@ z=1.0678083220184922 이다.
 ---
 
 c)
+RK
 
 ```python
 #RK
@@ -205,6 +206,52 @@ RK와 같은 방식으로 부피를 구하면\
 `[(7.394407707239073e-05+4.9533307621039795e-05j), (0.0019167551791885538+4.6118961502674845e-20j), (7.394407707239051e-05-4.9533307621039795e-05j)]`\
 이고 역시 물리적으로 타당한 값은 $0.0019167551791885538m^3$이다.\
 Z=0.9283710887216454이 나온다.
+
+---
+e)
+PR
+
+```python
+sigma=1-2**0.5
+epsilon=1-2**0.5
+OMEGA_PR=0.07780
+PSI_PR=0.45724
+
+alp=(1+(0.3764+1.54426*omega_sym-0.26992*omega_sym**2)*(1-Tr_sym**(0.5)))**2
+aT_PR=PSI_sym*(alp*R_sym**2*Tc_sym**2/(Pc_sym))
+b_PR=OMEGA_sym*R_sym*Tc_sym/Pc_sym
+P_PR=(R_sym*T_sym/(V_sym-b_PR))-aT_PR/((V_sym+epsilon*b_PR)*(V_sym+sigma*b_PR))
+
+P_PR_f=sp.lambdify((V_sym,PSI_sym,OMEGA_sym,T_sym,Tc_sym,Tr_sym,Pc_sym,R_sym,omega_sym),P_PR,'numpy')
+```
+책에나온대로 변수들을 저장했다.
+
+```python
+try:
+
+  V_PRn=sp.nsolve(P_PR_f(V_sym,PSI_PR,OMEGA_PR,T,Tc,Tr,Pc,R,omega)-P,V_sym,0.0022074423851483156)
+except: RuntimeError
+
+print('t수치해',V_PRn)
+
+V_PR=sp.solve(P_PR-P,V_sym)
+print('g해석해',V_PR)
+
+V_PR_f=sp.lambdify((PSI_sym,OMEGA_sym,T_sym,Tc_sym,Tr_sym,Pc_sym,R_sym,omega_sym),V_PR,'numpy')
+
+V_PRR=V_PR_f(PSI_PR,OMEGA_PR,T,Tc,Tr,Pc,R,omega)
+print('g해석해',V_PRR)
+
+Z_PR=P*V_PRR[1].real/(R*T)
+print('압축인자',Z_PR)
+```
+
+RK,SRK 방식과 동일하게 부피와 압축자를 구했다.\
+`[np.complex128(3.9213554644697e-05+4.87890977618477e-19j), (0.0018870248095402302+6.776263578034403e-20j), (0.00020464913171690214-5.421010862427522e-19j)]`\
+허수부가 가장 작은 $0.0018870248095402302m^3$ 이 가장 타당한해이다.\
+압축인자는 0.9139713281584859이다.
+
+---
 
 
 
