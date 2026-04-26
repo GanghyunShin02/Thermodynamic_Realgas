@@ -2,7 +2,7 @@
 title: "21101576 신강현 제 3장 연습문제 풀이 44, 61"
 format: pdf
 pdf-engine: xelatex
-mainfont: "NanumGothic" 
+mainfont: "NanumGothic"
 ---
 
 
@@ -46,7 +46,7 @@ print(sp.expand(a[0]))
 $Z_1-\frac{PV}{RT}$ 로 우변을 0으로 만든후 $P_{sym}=f(...)$ 꼴로 전개한다.\
 `B*R*T/V**2 + C*R*T/V**3 + R*T/V` 가 출력된다.
 
-```{python}
+```python
 aa=Z2.subs(P_sym,a[0])
 print('Z2에 정리한 P를 대입')
 print(sp.collect(aa,1/V_sym))
@@ -171,9 +171,8 @@ $V=0.0019152943754416904m^3, Z=0.9276635555011231$ 이다.
 
 ---
 d.
-SRK
 
-#SRK
+SRK
 
 ```python
 omega_sym=sp.symbols('omega')
@@ -187,6 +186,7 @@ P_SRK=(R_sym*T_sym/(V_sym-b_SRK))-aT_SRK/(V_sym*(V_sym+b_SRK))
 
 P_SRK_f=sp.lambdify((V_sym,PSI_sym,OMEGA_sym,T_sym,Tc_sym,Tr_sym,Pc_sym,R_sym,omega_sym),P_SRK,'numpy')
 ```
+
 694p에서 에틸렌의 $\omega$ 값을 찾아서 저장한다.\
 책에나온대로 SRK식을 문자로 전개한다. \
 
@@ -207,12 +207,14 @@ print('t수치해',V_SRKn)
 Z_SRK=P*Vsrk[1].real/(R*T)
 print('압축인자',Z_SRK)
 ```
+
 RK와 같은 방식으로 부피를 구하면\
 `[(7.394407707239073e-05+4.9533307621039795e-05j), (0.0019167551791885538+4.6118961502674845e-20j), (7.394407707239051e-05-4.9533307621039795e-05j)]`\
 이고 역시 물리적으로 타당한 값은 $0.0019167551791885538m^3$이다.\
 Z=0.9283710887216454이 나온다.
 
 ---
+
 e.
 PR
 
@@ -229,6 +231,7 @@ P_PR=(R_sym*T_sym/(V_sym-b_PR))-aT_PR/((V_sym+epsilon*b_PR)*(V_sym+sigma*b_PR))
 
 P_PR_f=sp.lambdify((V_sym,PSI_sym,OMEGA_sym,T_sym,Tc_sym,Tr_sym,Pc_sym,R_sym,omega_sym),P_PR,'numpy')
 ```
+
 책에나온대로 변수들을 저장했다.
 
 ```python
@@ -250,6 +253,7 @@ print('g해석해',V_PRR)
 Z_PR=P*V_PRR[1].real/(R*T)
 print('압축인자',Z_PR)
 ```
+
 
 RK,SRK 방식과 동일하게 부피와 압축자를 구했다.\
 `[np.complex128(3.9213554644697e-05+4.87890977618477e-19j), (0.0018870248095402302+6.776263578034403e-20j), (0.00020464913171690214-5.421010862427522e-19j)]`\
@@ -334,13 +338,14 @@ try:
   print('sex')
 except:RuntimeError
 ```
+
 390.895751467793K 나온다.\
 압축인자는 0.693942875069908나온다.
 
 2. SRK
 
 ```python
-#b번 SRK
+
 
 omega_sym=sp.symbols('omega')
 
@@ -365,7 +370,7 @@ print(V_SRKn)
 3. PR
 
 ```python
-#b번 PR
+
 sigma=1-2**0.5
 epsilon=1-2**0.5
 OMEGA_PR=0.07780
@@ -385,6 +390,7 @@ except: RuntimeError
 
 print('t수치해',V_PRn)
 ```
+
 494.581101617593K나온다.\
 압축인자는 0.548462771300770나온다.\
 PR이 RK/SRK에비해 압축인자가 작은 경향을 보여서 온도가 높게 나온것같다.
