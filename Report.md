@@ -1,10 +1,10 @@
 ---
 title: "21101576 신강현 제 3장 연습문제 풀이 44, 61"
-format: pdf
-pdf-engine: xelatex
-mainfont: "NanumGothic"
+format:
+  pdf:
+    pdf-engine: xelatex
+mainfont: Malgun Gothic
 ---
-
 
 
 파이썬 라이브러리 `sympy`는 방정식을 문자그대로 전개할수있다.\
