@@ -253,6 +253,10 @@ RK,SRK 방식과 동일하게 부피와 압축자를 구했다.\
 
 ---
 
+
+
+
+
 Z와 V의 경향은 아래와 같다.
 
 ![ㄴ](images/VVV.png)
@@ -299,8 +303,88 @@ Rk, SRK와 값이 상당히 다르다.\
 
 ---
 
+b)
+
+몰부피를 구할수 있고 압력이 주어져있으므로 온도를 구할수있다.\
+$\alpha(T_r; \omega)$에서 T가 근호안에 들어가있어 $T=f(...)$ 꼴로 대수적 풀이가 어렵다.\
+앞에서 언급한 수치해석을 통해 온도를 구했다.\
+
+1. RK
+
+```python
+#b번 SRK
+
+omega_sym=sp.symbols('omega')
 
 
+alp=(1+(0.48+1.574*omega_sym-0.176*omega_sym**2)*(1-Tr2**(0.5)))**2
+aT_SRK=PSI_sym*(alp*R_sym**2*Tc_sym**2/(Pc_sym))
+b_SRK=OMEGA_sym*R_sym*Tc_sym/Pc_sym
+P_SRK=(R_sym*T_sym/(V_sym-b_SRK))-aT_SRK/(V_sym*(V_sym+b_SRK))
+
+P_SRK_f=sp.lambdify((V_sym,PSI_sym,OMEGA_sym,T_sym,Tc_sym,Pc_sym,R_sym,omega_sym),P_SRK,'numpy')
+
+try:
+  V_SRKn=sp.nsolve(P_SRK_f(V2,PSI,OMEGA,T_sym,Tc_E,Pc_E,R,omega_E)-P2,T_sym,271)
+  print('sex')
+except:RuntimeError
+```
+390.895751467793K 나온다.\
+압축인자는 0.693942875069908나온다.
+
+2. SRK
+
+```python
+#b번 SRK
+
+omega_sym=sp.symbols('omega')
+
+
+alp=(1+(0.48+1.574*omega_sym-0.176*omega_sym**2)*(1-Tr2**(0.5)))**2
+aT_SRK=PSI_sym*(alp*R_sym**2*Tc_sym**2/(Pc_sym))
+b_SRK=OMEGA_sym*R_sym*Tc_sym/Pc_sym
+P_SRK=(R_sym*T_sym/(V_sym-b_SRK))-aT_SRK/(V_sym*(V_sym+b_SRK))
+
+P_SRK_f=sp.lambdify((V_sym,PSI_sym,OMEGA_sym,T_sym,Tc_sym,Pc_sym,R_sym,omega_sym),P_SRK,'numpy')
+
+try:
+  V_SRKn=sp.nsolve(P_SRK_f(V2,PSI,OMEGA,T_sym,Tc_E,Pc_E,R,omega_E)-P2,T_sym,271)
+except:RuntimeError
+
+print(V_SRKn)
+```
+
+383.005070315747K 나온다.\
+압축인자는 0.708239505556802나온다.
+
+3. PR
+
+```python
+#b번 PR
+sigma=1-2**0.5
+epsilon=1-2**0.5
+OMEGA_PR=0.07780
+PSI_PR=0.45724
+
+
+alp=(1+(0.3764+1.54426*omega_sym-0.26992*omega_sym**2)*(1-Tr2**(0.5)))**2
+aT_PR=PSI_sym*(alp*R_sym**2*Tc_sym**2/(Pc_sym))
+b_PR=OMEGA_sym*R_sym*Tc_sym/Pc_sym
+P_PR=(R_sym*T_sym/(V_sym-b_PR))-aT_PR/((V_sym+epsilon*b_PR)*(V_sym+sigma*b_PR))
+
+P_PR_f=sp.lambdify((V_sym,PSI_sym,OMEGA_sym,T_sym,Tc_sym,Pc_sym,R_sym,omega_sym),P_PR,'numpy')
+
+try:
+  V_PRn=sp.nsolve(P_PR_f(V2,PSI,OMEGA,T_sym,Tc_E,Pc_E,R,omega_E)-P_E,T_sym,271)
+except: RuntimeError
+
+print('t수치해',V_PRn)
+```
+494.581101617593K나온다.\
+압축인자는 0.548462771300770나온다.\
+PR이 RK/SRK에비해 압축인자가 작은 경향을 보여서 온도가 높게 나온것같다.
+
+---
 
 
 
