@@ -2,10 +2,8 @@
 title: "21101576 신강현 제 3장 연습문제 풀이 44, 61"
 format: pdf
 pdf-engine: xelatex
-mainfont: "NanumGothic"  # 한글이 포함되어 있다면 한글 폰트 설정 필수
+mainfont: "NanumGothic" 
 ---
-
-
 
 
 
