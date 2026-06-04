@@ -1,0 +1,31 @@
+---
+title: CRE_homework_21101576
+format : pdf
+---
+
+Ownerble Professer $Eunho\;\;LEE$ drink Ethanol solution
+with his peers. Ethanol decompose to Citric acid following reaction on river's vessel called $'hepatic\;\;portal\;\;vein'$. Professor's $hepatic\;\;portal\;\;vein$ could assumed as isothermal 100 pipes of pararell PBR reactor. Answer the following questions using given parameters.
+
+$$
+\mathrm{CH_3CH_2OH+NAD^+} \overset{\mathrm{ADH}}{\rightleftharpoons[k_{-1}]{k_1}} 
+\mathrm{CH_3CHO+NADH+H^+}
+$$
+
+$$
+\mathrm{CH_3CHO+NAD^+ +H_2O} \xrightarrow{\mathrm{ALDH\;\;\;k_2}} \mathrm{CH_3COOH+NADH+H^+}
+$$
+
+Coenzyme 
+$NAD^{+}$ 
+and enzyme ADH,ALDH is not included rate expression.
+
+- $C_0= 1mol/dm^3$
+- $k_1=10^{-4} s^{-1}gcat^{-1}$
+- $k_{-1}=10^{-6} s^{-1}gcat^{-1}$
+- $k_2=0.1 s^{-1}gcat{-1}$
+- Blood could assumed ethanol-water solution and density is 1g/ml.
+
+$a.$
+Korean law defines drunken state over then 0.03wt% of blood alchol concentration(BAC). If Professor's enzyme mass is 0.05g, find feed's maximum flow rate($v_0$) of undrunken state 
+as bottle/hr. (1 bottle is 0.36$L$).
+
